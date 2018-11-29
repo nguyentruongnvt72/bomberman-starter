@@ -2,6 +2,9 @@ package uet.oop.bomberman.entities.bomb;
 
 import uet.oop.bomberman.Board;
 import uet.oop.bomberman.entities.Entity;
+import uet.oop.bomberman.entities.character.Bomber;
+import uet.oop.bomberman.entities.character.enemy.Enemy;
+import uet.oop.bomberman.entities.tile.Wall;
 import uet.oop.bomberman.graphics.Screen;
 
 public class Flame extends Entity {
@@ -45,6 +48,21 @@ public class Flame extends Entity {
 		boolean last;
 
 		// TODO: tạo các segment dưới đây
+		int xa = 0;
+		int ya = 0;
+		if (_direction == 0) ya = -1;
+		if (_direction == 1) xa = 1;
+		if (_direction == 2) ya = 1;
+		if (_direction == 3) xa = -1;
+		for (int i = 0; i < _flameSegments.length; i++) {
+			int xf = (int) (_x + xa * (i + 1));
+			int yf = (int) (_y + ya * (i + 1));
+			if (i == _flameSegments.length - 1) {
+				_flameSegments[i] = new FlameSegment(xf, yf, _direction, true);
+			} else {
+				_flameSegments[i] = new FlameSegment(xf, yf, _direction, false);
+			}
+		}
 	}
 
 	/**
@@ -53,7 +71,25 @@ public class Flame extends Entity {
 	 */
 	private int calculatePermitedDistance() {
 		// TODO: thực hiện tính toán độ dài của Flame
-		return 1;
+		int xa = 0;
+		int ya = 0;
+		if (_direction == 0) ya = -1;
+		if (_direction == 1) xa = 1;
+		if (_direction == 2) ya = 1;
+		if (_direction == 3) xa = -1;
+
+		for (int i = 0; i < _radius; i++) {
+			int xf = (int) (_x + xa * (i + 1));
+			int yf = (int) (_y + ya * (i + 1));
+//            Entity entity = _board.getEntityAt(xf, yf);
+			if (xf == _x && yf == _y) continue;
+			Entity entity = _board.getEntity(xf, yf, null);
+//            System.out.println(entity);
+			entity.collide(this);
+			if (entity instanceof Wall) return i;
+		}
+		return _radius;
+
 	}
 	
 	public FlameSegment flameSegmentAt(int x, int y) {
@@ -77,6 +113,10 @@ public class Flame extends Entity {
 	@Override
 	public boolean collide(Entity e) {
 		// TODO: xử lý va chạm với Bomber, Enemy. Chú ý đối tượng này có vị trí chính là vị trí của Bomb đã nổ
-		return true;
+		if (e instanceof Bomber) ((Bomber) e).kill();
+		if (e instanceof Enemy) ((Enemy) e).kill();
+//        if (e instanceof Brick) ((Brick) e).destroy();
+		return false;
+
 	}
 }

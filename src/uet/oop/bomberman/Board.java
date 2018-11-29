@@ -130,9 +130,12 @@ public class Board implements IRender {
 		switch (_screenToShow) {
 			case 1:
 				_screen.drawEndGame(g, _points);
+
 				break;
 			case 2:
 				_screen.drawChangeLevel(g, _levelLoader.getLevel());
+
+
 				break;
 			case 3:
 				_screen.drawPaused(g);
