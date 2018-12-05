@@ -105,8 +105,6 @@ public class FileLevelLoader extends LevelLoader {
 					_board.addCharacter(new Oneal(Coordinates.tileToPixel(xE), Coordinates.tileToPixel(yE) + Game.TILES_SIZE, _board));
 					_board.addEntity(xE + yE * _width, new Grass(xE, yE, Sprite.grass));
 				}
-
-
 				// thêm Brick
 				if (_map[y][x] == '*') {
 					int xB = x, yB = y;
@@ -121,13 +119,7 @@ public class FileLevelLoader extends LevelLoader {
 				// thêm Item kèm Brick che phủ ở trên
 				if (_map[y][x] == 'x') {
 					int xI = x, yI = y;
-					_board.addEntity(xI + yI * _width,
-							new LayeredEntity(xI, yI,
-									new Grass(xI, yI, Sprite.grass),
-									new Portal(xI, yI, Sprite.portal),
-									new Brick(xI, yI, Sprite.brick)
-							)
-					);
+					_board.addEntity(xI + yI * _width, new LayeredEntity(xI, yI, new Grass(xI, yI, Sprite.grass), new Portal(xI, yI, Sprite.portal), new Brick(xI, yI, Sprite.brick)));
 				}
 				if (_map[y][x] == 'b') {
 					int xI = x, yI = y;

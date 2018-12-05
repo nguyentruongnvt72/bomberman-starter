@@ -23,7 +23,6 @@ public class SpriteSheet {
 		_pixels = new int[SIZE * SIZE];
 		load();
 	}
-	
 	private void load() {
 		try {
 			URL a = SpriteSheet.class.getResource(_path);

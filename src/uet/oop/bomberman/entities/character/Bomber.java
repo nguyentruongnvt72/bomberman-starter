@@ -64,7 +64,6 @@ public class Bomber extends Character {
 
         screen.renderEntity((int) _x, (int) _y - _sprite.SIZE, this);
     }
-
     public void calculateXOffset() {
         int xScroll = Screen.calculateXOffset(_board, this);
         Screen.setOffset(xScroll, 0);
@@ -80,7 +79,6 @@ public class Bomber extends Character {
         // TODO: nếu 3 điều kiện trên thỏa mãn thì thực hiện đặt bom bằng placeBomb()
         // TODO: sau khi đặt, nhớ giảm số lượng Bomb Rate và reset _timeBetweenPutBombs về 0
         int bombRate = Game.getBombRate();
-
         if (_input.space && _timeBetweenPutBombs < 0 && bombRate >= 1) {
             double centerX = _x + _sprite.getRealWidth() / 2;
             double centerY = _y - _sprite.getRealHeight() / 2;
@@ -165,8 +163,6 @@ public class Bomber extends Character {
         }
         return true;
     }
-
-
     public void moveCenterX() {
         int pixelOfEntity = Coordinates.tileToPixel(1);
         double centerX = _x + _sprite.getRealWidth() / 2;
